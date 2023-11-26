@@ -16,12 +16,12 @@ class State(BaseModel, Base):
     name = ""
     """
     """returns the list of City instances with state_id"""
-    if getenv("HBNB_TYPE_STORAGE") != "db":
+    if os.getenv("HBNB_TYPE_STORAGE") != "db":
         @property
         def cities(self):
             city = list()
             for value in models.storage.all(city).items():
-                if value_state.id == self.id:
+                if value.state_id == self.id:
                     city.append(value)
             return city
 
