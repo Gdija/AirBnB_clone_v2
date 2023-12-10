@@ -7,6 +7,7 @@ from datetime import datetime
 
 
 def do_pack():
+    """ create archive for web_static content """
     local("mkdir -p versions")
     now = datetime.now()
     time = now.strftime("%Y%m%d%H%M%S")
