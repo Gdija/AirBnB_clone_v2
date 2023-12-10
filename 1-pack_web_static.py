@@ -1,13 +1,17 @@
-#!/usr/bin/env bash
-#sets up web server
-sudo apt-get -y update 
-sudo apt-get -y install nginx
-sudo service nginx start
+#!/usr/bin/python3
+'''
+generates tgz archive
+'''
+from fabric.api import local
+from datetime import datetime 
 
-sudo mkdir -p /data/web_static/shared/
-sudo mkdir -p /data/web_static/releases/test/
-echo "Alx School" | sudo tee /data/web_static/releases/test/index.html
-sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
-sudo chwon -R ubuntu:ubuntu /data/
-sudo sed -i '39i \\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}' /etc/nginx/sites-available/default
-sudo service nginx restart
+def do_pack():
+    local("mkdir -p versions")
+    now = datetime.now()
+    time = now.strftime("%Y%m%d%H%M%S")
+    name = "versions/web_static_{}.tgz".format(time)
+    archive = local('tar -cvzf {} web_static'.format(name))
+    if archive.succeeded:
+        return name
+    else:
+        return None
