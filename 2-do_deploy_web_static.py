@@ -36,12 +36,12 @@ def do_deploy(archive_path):
         #uncompress archive
         run('sudo tar -xzf /tmp/{}.tgz -C /data/web_static/releases/{}'.
             format(file_name, file_name))
-        #remove archive
-        run('sudo rm -rf /tmp/{}.tgz'.format(file_name))
         run('sudo mv /data/web_static/releases/{}/web_static/* \
             /data/web_static/releases/{}/'.
             format(file_name, file_name))
         run('sudo rm -rf /data/web_static/releases/{}/web_static'.format(file_name))
+        #remove archive
+        run('sudo rm -rf /tmp/{}.tgz'.format(file_name))
         run('sudo rm -rf /data/web_static/current')
         run('sudo ln -s /data/web_static/releases/\
                 web_static_{}/ /data/web_static/current'.format(file_name))
